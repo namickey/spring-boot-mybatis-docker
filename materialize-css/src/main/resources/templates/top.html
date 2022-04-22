@@ -30,15 +30,9 @@
 	function getJusho(){
 		  fetch("/jusho", {
 			  method: "get"
-			}).then(function (response) {
-			  if (response.status === 200) {
-			    console.log(response.statusText); // => "OK"
-			  } else {
-			    console.log(response.statusText); // => Error Message
-			  }
-			}).catch(function (response) {
-			  console.log(response); // => "TypeError: ~"
-			});
+			})
+			.then(response => response.json())
+			.then(data => console.log(data));
 	}
   
     </script>
