@@ -1,6 +1,7 @@
 package com.example.demo.a1;
 
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersInvalidException;
@@ -25,7 +26,8 @@ public class DemoScheduler {
         JobParameters params = new JobParametersBuilder().addLong("JobID", System.currentTimeMillis())
                 .toJobParameters();
         try {
-            jobLauncher.run(job, params);
+        	JobExecution je = jobLauncher.run(job, params);
+        	System.out.println("je.getExitStatus()" +je.getExitStatus());
         } catch (JobExecutionAlreadyRunningException e) {
             e.printStackTrace();
         } catch (JobRestartException e) {
