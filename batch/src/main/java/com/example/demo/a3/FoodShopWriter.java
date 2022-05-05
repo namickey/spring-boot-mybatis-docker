@@ -7,10 +7,15 @@ import java.util.List;
 
 @Component
 public class FoodShopWriter implements ItemWriter<Item> {
+    private int i;
+
     @Override
     public void write(List<? extends Item> list) throws Exception {
         for (Item item: list) {
-            System.out.println(item.getName());
+            i++;
+            if (i % 1000 == 1) {
+                System.out.println(item.getName());
+            }
         }
     }
 }

@@ -87,7 +87,7 @@ public class FoodShopConfig {
     @Bean
     public Step stepFoodShop1() throws MalformedURLException {
         return stepBuilderFactory.get("stepFoodShop1")
-                .<Item, Item>chunk(2)
+                .<Item, Item>chunk(1000)
                 .reader(foodReader())
                 .processor(foodShopPros)
                 .writer(foodShopWriter)
