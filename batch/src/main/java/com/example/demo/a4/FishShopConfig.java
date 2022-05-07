@@ -18,6 +18,8 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.ResourceLoader;
 
 import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @EnableBatchProcessing
@@ -39,6 +41,11 @@ public class FishShopConfig {
 
     @Bean
     public FlatFileItemReader<Item> fishReader() throws MalformedURLException {
+
+        Path p1 = Paths.get("");
+        Path p2 = p1.toAbsolutePath();
+        System.out.println("**************************");
+        System.out.println(p2.toString());
 
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setNames("id", "name", "code");
