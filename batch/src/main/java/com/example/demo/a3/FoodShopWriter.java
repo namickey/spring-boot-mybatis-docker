@@ -13,8 +13,8 @@ public class FoodShopWriter implements ItemWriter<Item> {
     public void write(List<? extends Item> list) throws Exception {
         for (Item item: list) {
             i++;
-            if (i % 1000 == 1) {
-                System.out.println(item.getName());
+            if (i % 10000 == 1) {
+                System.out.println(item.getName() + ", " + item.getCode());
             }
         }
     }

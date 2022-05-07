@@ -2,7 +2,6 @@ package com.example.demo.a3;
 
 import com.amazonaws.services.s3.AmazonS3;
 import io.awspring.cloud.core.io.s3.SimpleStorageProtocolResolver;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -12,8 +11,6 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
-import org.springframework.batch.item.file.mapping.JsonLineMapper;
-import org.springframework.batch.item.file.separator.JsonRecordSeparatorPolicy;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,18 +19,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.UrlResource;
 
 import java.net.MalformedURLException;
-import java.util.Map;
-
 
 @EnableBatchProcessing
 @Configuration
 public class FoodShopConfig {
-
-    @Autowired
-    private SqlSessionFactory sqlSessionFactory;
 
     @Autowired
     private  FoodShopPros foodShopPros;
@@ -60,7 +51,7 @@ public class FoodShopConfig {
         }
 
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
-        lineTokenizer.setNames(new String[] { "id", "name" });
+        lineTokenizer.setNames("id", "name", "code");
         lineTokenizer.setStrict(false);
 
         BeanWrapperFieldSetMapper<Item> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
