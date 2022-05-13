@@ -1,11 +1,13 @@
 package com.example.demo.a4;
 
+import com.amazonaws.services.s3.AmazonS3;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
@@ -18,6 +20,8 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.ResourceLoader;
 
 import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @EnableBatchProcessing
@@ -37,8 +41,18 @@ public class FishShopConfig {
     @Autowired
     private ResourceLoader resourceLoader;
 
+
+
+    @Autowired
+    private FishTasklet fishTasklet;
+
     @Bean
     public FlatFileItemReader<Item> fishReader() throws MalformedURLException {
+
+        Path p1 = Paths.get("");
+        Path p2 = p1.toAbsolutePath();
+        System.out.println("**************************");
+        System.out.println(p2.toString());
 
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setNames("id", "name", "code");
@@ -58,10 +72,11 @@ public class FishShopConfig {
     };
 
     @Bean
-    public Job fishShopJob(@Qualifier("stepFishShop1") Step step1) {
+    public Job fishShopJob(@Qualifier("stepFishShop1") Step step1, @Qualifier("stepFishShop0") Step step0) {
         return jobBuilderFactory.get("fishShopJob")
                 .incrementer(new RunIdIncrementer())
-                .start(step1)
+                .start(step0)
+                .next(step1)
                 .build();
     }
 
@@ -74,4 +89,12 @@ public class FishShopConfig {
                 .writer(fishShopWriter)
                 .build();
     }
+
+    @Bean
+    public Step stepFishShop0(){
+        return stepBuilderFactory.get("stepFishShop0")
+                .tasklet(fishTasklet)
+                .build();
+    }
+
 }

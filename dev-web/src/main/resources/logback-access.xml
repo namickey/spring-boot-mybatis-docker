@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%t{yyyy-MM-dd HH:mm:ss.SSS}   %l %u %S [%I] "%r" %s %D</pattern>
+        </encoder>
+    </appender>
+    <appender-ref ref="console"/>
+</configuration>
