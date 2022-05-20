@@ -1,15 +1,20 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 public class HelloController {
-    @GetMapping("/hello")
+
+    @PostMapping("/hello")
     @ResponseBody
-    public String hello() {
-        return "aaa";
+    public Object hello(@Valid @RequestBody User user, BindingResult result) {
+        if(result.hasErrors()){
+            return result.getFieldError();
+        }
+        System.out.println(user);
+        return new Item("okashi", 100);
     }
 }
