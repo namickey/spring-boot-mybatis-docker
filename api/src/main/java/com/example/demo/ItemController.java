@@ -12,4 +12,10 @@ public class ItemController {
     public Object item(){
         return new Item("kocha", 100);
     }
+
+    @GetMapping("/")
+    @ResponseBody
+    public Object helth(){
+        return "success";
+    }
 }
