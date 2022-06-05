@@ -8,10 +8,30 @@
     <title>index</title>
 </head>
 <body>
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Logo</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">JavaScript</a></li>
+        </ul>
+    </div>
+</nav>
 <div class="container">
-    <div class="row header"><h1>index</h1></div>
-    <div class="row ">
+
+    <div class="row m6">
         <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="山田　太郎" id="name" type="text" class="validate">
+                    <label for="name">氏名</label>
+                </div>
+                <div class="input-field col s6">
+                    <input placeholder="東京都東京市東京１ー１ー１" id="jusho" type="text" class="validate">
+                    <label for="jusho">住所</label>
+                </div>
+            </div>
             <div class="row">
                 <div class="input-field col s6">
                     <input placeholder="Placeholder" id="first_name" type="text" class="validate">
@@ -20,12 +40,6 @@
                 <div class="input-field col s6">
                     <input id="last_name" type="text" class="validate">
                     <label for="last_name">Last Name</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-                    <label for="disabled">Disabled</label>
                 </div>
             </div>
             <div class="row">
@@ -50,14 +64,20 @@
                     </div>
                 </div>
             </div>
-            <a href="/confirm">confirm</a>
+            <a href="/confirm" class="waves-effect waves-light btn">確認</a>
         </form>
 
 
     </div>
-    <div class="row footer"></div>
-</div>
 
+</div>
+<footer class="page-footer">
+    <div>
+        <div class="container">
+            © 2022 Copyright Text
+        </div>
+    </div>
+</footer>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 </body>
 </html>
