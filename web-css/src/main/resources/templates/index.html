@@ -35,11 +35,11 @@
             <div class="row">
                 <div class="col s12">
                     <div class="input-field col s8">
-                        <input id="postcode" type="text" placeholder="半角数字" class="validate">
-                        <label for="postcode">郵便番号</label>
+                        <input id="postCode" type="text" placeholder="半角数字" class="validate">
+                        <label for="postCode">郵便番号</label>
                     </div>
                     <div class="col s4">
-                        <a href="#modal1" id="modal-triger" class="waves-effect waves-light btn">検索</a>
+                        <a href="#modal1" id="modal-trigger" class="waves-effect waves-light btn">検索</a>
                     </div>
                     <div id="modal1" class="modal">
                         <div class="modal-content">
@@ -54,14 +54,14 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="jushokanji" type="text" placeholder="全角漢字" class="validate">
-                    <label for="jushokanji">住所漢字（都道府県・市区町村・番地・建物名）</label>
+                    <input id="jushoKanji" type="text" placeholder="全角漢字" class="validate">
+                    <label for="jushoKanji">住所漢字（都道府県・市区町村・番地・建物名）</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="jushokana" type="text" placeholder="全角カナ" class="validate">
-                    <label for="jushokana">住所カナ（都道府県・市区町村・番地・建物名）</label>
+                    <input id="jushoKana" type="text" placeholder="全角カナ" class="validate">
+                    <label for="jushoKana">住所カナ（都道府県・市区町村・番地・建物名）</label>
                 </div>
             </div>
             <a href="/confirm" class="waves-effect waves-light btn">確認</a>
@@ -81,42 +81,42 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function(){
     //TODO モーダル処理の部品化。
     const optionsModal = {
-        onCloseEnd: () => {
+        onCloseEnd: function(){
             //モーダルクローズ時に、モーダル内住所リストをクリア。
             $('#jusholist').empty();
         }
     }
-    var Modalelem = document.querySelector('.modal');
-    var instanceModal = M.Modal.init(Modalelem, optionsModal);
+    const modalElm = document.querySelector('.modal');
+    const instanceModal = M.Modal.init(modalElm, optionsModal);
 
     //住所検索ボタンイベント設定。クリック後にAjax呼び出し。
-    $('#modal-triger').on('click', function(){
-        fetch("/getJusho?postCode="+$('#postcode').val(), {
+    $('#modal-trigger').on('click', function(){
+        fetch("/getJusho?postCode="+$('#postCode').val(), {
     		method: "get"
 	    })
 	  	.then(response => response.json())  //TODO 0件エラー、入力チェックエラー、システムエラー、タイムアウト、認証エラー等のハンドリング。
 	    .then(data => {
 	        //住所1件毎に、イベント設定とラジオボタン要素生成。
-	        data.forEach(item => {
-	            var postCode = item['postCode'];
-	            var jushoKanji = item['jushoKanji'];
-	            var jushoKana = item['jushoKana'];
-	            var radioelm = $('<p><label><input name="ju" type="radio"/><span>'+postCode+' '+jushoKanji+'</span></label></p>');
+	        data.forEach(function(item){
+	            const postCode = item['postCode'];
+	            const jushoKanji = item['jushoKanji'];
+	            const jushoKana = item['jushoKana'];
+	            const radioInput = $('<p><label><input name="ju" type="radio"/><span>'+postCode+' '+jushoKanji+'</span></label></p>');
 	            //イベント設定。住所が選択されたら、選択された住所を画面本体へ反映する。
-	            $(radioelm).find('input').on('change', function(){
-	                $('#postcode').val(postCode);
-	                $('#jushokanji').val(jushoKanji);
-	                $('#jushokana').val(jushoKana);
+	            $(radioInput).find('input').on('change', function(){
+	                $('#postCode').val(postCode);
+	                $('#jushoKanji').val(jushoKanji);
+	                $('#jushoKana').val(jushoKana);
 	            });
-	            $('#jusholist').append(radioelm);
+	            $('#jusholist').append(radioInput);
 		    });
-		    //イベント設定。住所が選択されたら、モーダルクローズ。※300ms遅延してクローズ。
+		    //イベント設定。住所が選択されたら、モーダルをクローズする。※radioの選択が見えるように、遅延してクローズ。
 		    $('#jusholist input').each(function(index, element){
 		        $(element).on('change', function(){
-		            setTimeout(() => {instanceModal.close()}, 300);
+		            setTimeout(() => {instanceModal.close()}, 200);
 		        });
 		    });
 		    //モーダル画面を開く
