@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>index</title>
 </head>
@@ -43,6 +43,14 @@
                     </div>
                     <div id="modal1" class="modal">
                         <div class="modal-content">
+                            <div class="row">
+                                <div class="input-field col s2">
+                                    <input id="postCode-modal" type="text" placeholder="半角数字" class="validate">
+                                </div>
+                                <div class="input-field col s2">
+                                    <a href="#modal1" class="waves-effect waves-light btn">検索</a>
+                                </div>
+                            </div>
                             <p>検索結果</p>
                             <div id="jusholist" ></div>
                         </div>
@@ -64,7 +72,7 @@
                     <label for="jushoKana">住所カナ（都道府県・市区町村・番地・建物名）</label>
                 </div>
             </div>
-            <a href="/confirm" class="waves-effect waves-light btn">確認</a>
+            <a href="confirm" class="waves-effect waves-light btn">確認</a>
         </form>
     </div>
 </div>
@@ -75,7 +83,7 @@
         </div>
     </div>
 </footer>
-<script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="/js/materialize.min.js"></script>
 <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -94,12 +102,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
     //住所検索ボタンイベント設定。クリック後にAjax呼び出し。
     $('#modal-trigger').on('click', function(){
-        fetch("/getJusho?postCode="+$('#postCode').val(), {
-    		method: "get"
-	    })
-	  	.then(response => response.json())  //TODO 0件エラー、入力チェックエラー、システムエラー、タイムアウト、認証エラー等のハンドリング。
-	    .then(data => {
-	        //住所1件毎に、イベント設定とラジオボタン要素生成。
+        $.ajax({
+            url:'/getJusho',
+            type:'GET',
+            data: {
+                postCode: $('#postCode').val(),
+            },
+            dataType: 'json',
+            timeout: 3000,
+            xhrFields: {
+                withCredentials: true
+            },
+        }).done(function(data){
+            //住所1件毎に、イベント設定とラジオボタン要素生成。
 	        data.forEach(function(item){
 	            const postCode = item['postCode'];
 	            const jushoKanji = item['jushoKanji'];
@@ -121,7 +136,11 @@ document.addEventListener('DOMContentLoaded', function(){
 		    });
 		    //モーダル画面を開く
 		    instanceModal.open();
-		});
+        }).fail(function(data){
+            console.log(data['statusText']);
+            console.log(data['status']);
+            console.log(data['responseText']);
+        });
     });
 });
 
