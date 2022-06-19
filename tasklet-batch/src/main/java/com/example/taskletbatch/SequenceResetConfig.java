@@ -7,7 +7,6 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,10 +28,10 @@ public class SequenceResetConfig {
     }
 
     @Bean
-    public Job job1(@Qualifier("step1") Step step1) {
+    public Job job1() {
         return jobBuilderFactory.get("job1")
                 .incrementer(new RunIdIncrementer())
-                .start(step1)
+                .start(step1())
                 .build();
     }
 }
