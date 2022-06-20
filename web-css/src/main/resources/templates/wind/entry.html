@@ -45,11 +45,19 @@
                         <div class="modal-content">
                             <div class="row">
                                 <div class="input-field col s2">
-                                    <input id="postCode-modal" type="text" placeholder="半角数字" class="validate">
+                                    <input id="postCode-modal22" type="text" placeholder="半角数字" class="validate">
                                 </div>
+                                <div class="input-field col s3">
+                                    <a href="#" id='modal-trigger2' class="waves-effect waves-light btn">モーダル1</a>
+
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="input-field col s2">
-                                    <a href="#" id='modal-search' class="waves-effect waves-light btn">検索</a>
-                                    <a href="#" id='modal-trigger2' class="waves-effect waves-light btn">モーダル</a>
+                                    <input id="postCode-modal33" type="text" placeholder="半角数字" class="validate">
+                                </div>
+                                <div class="input-field col s3">
+                                    <a href="#" id='modal-trigger3' class="waves-effect waves-light btn">モーダル2</a>
                                 </div>
                             </div>
                             <p>検索結果</p>
@@ -61,6 +69,7 @@
                     </div>
                     <div id="modal2" class="modal">
                         <div class="modal-content">
+                            モーダル１
                             <div class="row">
                                 <div class="input-field col s2">
                                     <input id="postCode-modal2" type="text" placeholder="半角数字" class="validate">
@@ -71,6 +80,24 @@
                             </div>
                             <p>検索結果</p>
                             <div id="jusholist2" ></div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="modal-close waves-effect waves-green btn-flat">キャンセル</a>
+                        </div>
+                    </div>
+                    <div id="modal3" class="modal">
+                        <div class="modal-content">
+                            モーダル２
+                            <div class="row">
+                                <div class="input-field col s2">
+                                    <input id="postCode-modal3" type="text" placeholder="半角数字" class="validate">
+                                </div>
+                                <div class="input-field col s2">
+                                    <a href="#" id='modal-search3' class="waves-effect waves-light btn">検索</a>
+                                </div>
+                            </div>
+                            <p>検索結果</p>
+                            <div id="jusholist3" ></div>
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="modal-close waves-effect waves-green btn-flat">キャンセル</a>
@@ -107,70 +134,17 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
 <script>
-function getJusho(inputPostCode, instanceModal) {
-    $.ajax({
-        url:'/getJusho',
-        type:'GET',
-        data: {
-            postCode: inputPostCode,
-        },
-        dataType: 'json',
-        timeout: 3000,
-        xhrFields: {
-            withCredentials: true
-        },
-    }).done(function(data){
-        $('#jusholist').empty();
-        //住所1件毎に、イベント設定とラジオボタン要素生成。
-        data.forEach(function(item){
-            const postCode = item['postCode'];
-            const jushoKanji = item['jushoKanji'];
-            const jushoKana = item['jushoKana'];
-            const radioInput = $('<p><label><input name="ju" type="radio"/><span>'+postCode+' '+jushoKanji+'</span></label></p>');
-            //イベント設定。住所が選択されたら、選択された住所を画面本体へ反映する。
-            $(radioInput).find('input').on('change', function(){
-                $('#postCode').val(postCode);
-                $('#jushoKanji').val(jushoKanji);
-                $('#jushoKana').val(jushoKana);
-            });
-            $('#jusholist').append(radioInput);
-        });
-        //イベント設定。住所が選択されたら、モーダルをクローズする。※radioの選択が見えるように、遅延してクローズ。
-        $('#jusholist input').each(function(index, element){
-            $(element).on('change', function(){
-                setTimeout(() => {instanceModal.close()}, 200);
-            });
-        });
-    }).fail(function(data){
-        console.log(data['statusText']);
-        console.log(data['status']);
-        console.log(data['responseText']);
-    });
-}
-
 $(document).ready(function(){
-    //TODO モーダル処理の部品化。
-    const optionsModal = {
-        onCloseEnd: function(){
-            //モーダルクローズ時に、モーダル内住所リストをクリア。
-            $('#jusholist').empty();
-        }
-    }
     const modalElm = document.querySelector('#modal1');
-    const instanceModal = M.Modal.init(modalElm, optionsModal);
-    const modalElm2 = document.querySelector('#modal2');
-    const instanceModal2 = M.Modal.init(modalElm2, optionsModal);
+    const instanceModal = M.Modal.init(modalElm, {});
 
-    //モーダル起動ボタン。住所検索ボタンイベント設定。クリック後にAjax呼び出し。
+    const modalElm2 = document.querySelector('#modal2');
+    const instanceModal2 = M.Modal.init(modalElm2, {});
+
+    const modalElm3 = document.querySelector('#modal3');
+    const instanceModal3 = M.Modal.init(modalElm3, {});
+
     $('#modal-trigger').on('click', function(){
-        const postc = $('#postCode').val();
-        console.log(postc);
-        if (postc == '') {
-            instanceModal.open();
-            return;
-        }
-        $('#postCode-modal').val($('#postCode').val())
-        getJusho($('#postCode').val(), instanceModal);
         instanceModal.open();
     });
 
@@ -178,9 +152,8 @@ $(document).ready(function(){
         instanceModal2.open();
     });
 
-    //モーダル内の検索ボタン
-    $('#modal-search').on('click', function(){
-        getJusho($('#postCode-modal').val(), instanceModal);
+    $('#modal-trigger3').on('click', function(){
+        instanceModal3.open();
     });
 });
 
