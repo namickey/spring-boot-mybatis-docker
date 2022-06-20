@@ -1,4 +1,4 @@
-package com.example.webcss;
+package com.example.webcss.a1;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

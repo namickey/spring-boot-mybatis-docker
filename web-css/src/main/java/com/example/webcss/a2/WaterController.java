@@ -1,4 +1,4 @@
-package com.example.webcss;
+package com.example.webcss.a2;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
