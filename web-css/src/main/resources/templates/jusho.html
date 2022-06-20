@@ -7,18 +7,19 @@
                     <input id="postCode-modal" type="text" placeholder="半角数字" class="validate">
                 </div>
                 <div class="input-field col s2">
-                    <a href="#modal1" class="waves-effect waves-light btn">検索</a>
+                    <a href="#" id='modal-search' class="waves-effect waves-light btn">検索</a>
                 </div>
             </div>
             <p>検索結果</p>
             <div id="jusholist" ></div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">キャンセル</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">キャンセル</a>
         </div>
     </div>
     <script type="text/javascript" src="/js/jusho.js"></script>
+    <script type="text/javascript" src="/js/water.js"></script>
     <script th:inline="javascript">
-    jusho(/*[[${btnName}]]*/)
-</script>
+        jusho(/*[[${btnName}]]*/)
+    </script>
 </div>
