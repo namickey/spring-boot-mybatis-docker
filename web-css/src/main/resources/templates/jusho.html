@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="frag (btnName,twovar)">
+<div th:fragment="frag (modalTrigger, postCode, jushoKanji, jushoKana)">
     <div id="modal1" class="modal">
         <div class="modal-content">
             <div class="row">
@@ -18,8 +18,9 @@
         </div>
     </div>
     <script type="text/javascript" src="/js/jusho.js"></script>
-    <script type="text/javascript" src="/js/water.js"></script>
     <script th:inline="javascript">
-        jusho(/*[[${btnName}]]*/)
+        $(document).ready(function(){
+            initJushoModal([[${modalTrigger}]], [[${postCode}]], [[${jushoKanji}]], [[${jushoKana}]]);
+        });
     </script>
 </div>

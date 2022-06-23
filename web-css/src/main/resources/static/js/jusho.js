@@ -1,7 +1,3 @@
-function jusho(btnName){
-    console.log(btnName);
-}
-
 function getJusho(instanceModal, postCodeVal, postCodeId, jushoKanjiId, jushoKanaId) {
     $.ajax({
         url:'/getJusho',

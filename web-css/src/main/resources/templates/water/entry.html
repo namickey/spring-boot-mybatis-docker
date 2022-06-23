@@ -36,24 +36,47 @@
             <div class="row">
                 <div class="col s12">
                     <div class="input-field col s8">
-                        <input id="postCode" type="text" placeholder="半角数字" class="validate">
-                        <label for="postCode">郵便番号</label>
+                        <input id="jitaku-postCode" type="text" placeholder="半角数字" class="validate">
+                        <label for="jitaku-postCode">自宅郵便番号</label>
                     </div>
                     <div class="col s4">
-                        <a href="#" id="modal-trigger" class="waves-effect waves-light btn">検索</a>
+                        <a href="#" id="jitaku-modal-trigger" class="waves-effect waves-light btn">検索</a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="jushoKanji" type="text" placeholder="全角漢字" class="validate">
-                    <label for="jushoKanji">住所漢字（都道府県・市区町村・番地・建物名）</label>
+                    <input id="jitaku-jushoKanji" type="text" placeholder="全角漢字" class="validate">
+                    <label for="jitaku-jushoKanji">自宅住所漢字（都道府県・市区町村・番地・建物名）</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="jushoKana" type="text" placeholder="全角カナ" class="validate">
-                    <label for="jushoKana">住所カナ（都道府県・市区町村・番地・建物名）</label>
+                    <input id="jitaku-jushoKana" type="text" placeholder="全角カナ" class="validate">
+                    <label for="jitaku-jushoKana">自宅住所カナ（都道府県・市区町村・番地・建物名）</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field col s8">
+                        <input id="office-postCode" type="text" placeholder="半角数字" class="validate">
+                        <label for="office-postCode">勤務先郵便番号</label>
+                    </div>
+                    <div class="col s4">
+                        <a href="#" id="office-modal-trigger" class="waves-effect waves-light btn">検索</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="office-jushoKanji" type="text" placeholder="全角漢字" class="validate">
+                    <label for="office-jushoKanji">勤務先住所漢字（都道府県・市区町村・番地・建物名）</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="office-jushoKana" type="text" placeholder="全角カナ" class="validate">
+                    <label for="office-jushoKana">勤務先住所カナ（都道府県・市区町村・番地・建物名）</label>
                 </div>
             </div>
             <a href="confirm" class="waves-effect waves-light btn">確認</a>
@@ -73,6 +96,7 @@
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
-<div id="jushomodal" th:insert="jusho::frag('aa','bb')"></div>
+<div id="jitaku-jushomodal" th:insert="jusho::frag('#jitaku-modal-trigger','#jitaku-postCode', '#jitaku-jushoKanji', '#jitaku-jushoKana')"></div>
+<div id="office-jushomodal" th:insert="jusho::frag('#office-modal-trigger','#office-postCode', '#office-jushoKanji', '#office-jushoKana')"></div>
 </body>
 </html>
