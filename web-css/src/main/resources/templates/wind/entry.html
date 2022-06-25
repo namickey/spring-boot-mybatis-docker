@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="jp">
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -41,68 +41,7 @@
                     <div class="col s4">
                         <a href="#" id="modal-trigger" class="waves-effect waves-light btn">検索</a>
                     </div>
-                    <div id="modal1" class="modal">
-                        <div class="modal-content">
-                            <div class="row">
-                                <div class="input-field col s2">
-                                    <input id="postCode-modal22" type="text" placeholder="半角数字" class="validate">
-                                </div>
-                                <div class="input-field col s3">
-                                    <a href="#" id='modal-trigger2' class="waves-effect waves-light btn">モーダル1</a>
 
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s2">
-                                    <input id="postCode-modal33" type="text" placeholder="半角数字" class="validate">
-                                </div>
-                                <div class="input-field col s3">
-                                    <a href="#" id='modal-trigger3' class="waves-effect waves-light btn">モーダル2</a>
-                                </div>
-                            </div>
-                            <p>検索結果</p>
-                            <div id="jusholist" ></div>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" class="modal-close waves-effect waves-green btn-flat">キャンセル</a>
-                        </div>
-                    </div>
-                    <div id="modal2" class="modal">
-                        <div class="modal-content">
-                            モーダル１
-                            <div class="row">
-                                <div class="input-field col s2">
-                                    <input id="postCode-modal2" type="text" placeholder="半角数字" class="validate">
-                                </div>
-                                <div class="input-field col s2">
-                                    <a href="#" id='modal-search2' class="waves-effect waves-light btn">検索</a>
-                                </div>
-                            </div>
-                            <p>検索結果</p>
-                            <div id="jusholist2" ></div>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" class="modal-close waves-effect waves-green btn-flat">キャンセル</a>
-                        </div>
-                    </div>
-                    <div id="modal3" class="modal">
-                        <div class="modal-content">
-                            モーダル２
-                            <div class="row">
-                                <div class="input-field col s2">
-                                    <input id="postCode-modal3" type="text" placeholder="半角数字" class="validate">
-                                </div>
-                                <div class="input-field col s2">
-                                    <a href="#" id='modal-search3' class="waves-effect waves-light btn">検索</a>
-                                </div>
-                            </div>
-                            <p>検索結果</p>
-                            <div id="jusholist3" ></div>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" class="modal-close waves-effect waves-green btn-flat">キャンセル</a>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="row">
@@ -128,35 +67,57 @@
         </div>
     </div>
 </footer>
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <div class="row">
+            <div class="input-field col s2">
+                <input id="postCode-modal22" type="text" placeholder="半角数字" class="validate">
+            </div>
+            <div class="input-field col s3">
+                <a href="#" class="waves-effect waves-light btn jusho-trigger"
+                   data-insert-id="jitaku-jusho-insert"
+                   data-post-code-id="jitaku-post-code"
+                   data-jusho-kanji-id="jitaku-jusho-kanji"
+                   data-jusho-kana-id="jitaku-jusho-kana">検索</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s2">
+                <input id="postCode-modal33" type="text" placeholder="半角数字" class="validate">
+            </div>
+            <div class="input-field col s3">
+                <a href="#" class="waves-effect waves-light btn jusho-trigger"
+                   data-insert-id="office-jusho-insert"
+                   data-post-code-id="office-post-code"
+                   data-jusho-kanji-id="office-jusho-kanji"
+                   data-jusho-kana-id="office-jusho-kana">検索</a>
+            </div>
+        </div>
+        <p>検索結果</p>
+        <div id="jusholist" ></div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-green btn-flat">キャンセル</a>
+    </div>
+</div>
+<div id="jitaku-jusho-insert" th:insert="jusho"></div>
+<div id="office-jusho-insert" th:insert="jusho"></div>
+
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
+<script type="text/javascript" src="/js/jusho.js"></script>
 <script>
 $(document).ready(function(){
     const modalElm = document.querySelector('#modal1');
     const instanceModal = M.Modal.init(modalElm, {});
 
-    const modalElm2 = document.querySelector('#modal2');
-    const instanceModal2 = M.Modal.init(modalElm2, {});
-
-    const modalElm3 = document.querySelector('#modal3');
-    const instanceModal3 = M.Modal.init(modalElm3, {});
-
     $('#modal-trigger').on('click', function(){
         instanceModal.open();
     });
-
-    $('#modal-trigger2').on('click', function(){
-        instanceModal2.open();
-    });
-
-    $('#modal-trigger3').on('click', function(){
-        instanceModal3.open();
-    });
 });
-
 </script>
 </body>
 </html>
