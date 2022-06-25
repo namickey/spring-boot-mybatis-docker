@@ -1,4 +1,4 @@
-function getJusho(instanceModal, postCodeVal, postCodeId, jushoKanjiId, jushoKanaId) {
+function getJusho(insertId, instanceModal, postCodeVal, postCodeId, jushoKanjiId, jushoKanaId) {
     $.ajax({
         url:'/getJusho',
         type:'GET',
@@ -11,7 +11,7 @@ function getJusho(instanceModal, postCodeVal, postCodeId, jushoKanjiId, jushoKan
             withCredentials: true
         },
     }).done(function(data){
-        $('#jusholist').empty();
+        $(insertId).find('.jusholist').empty();
         //住所1件毎に、イベント設定とラジオボタン要素生成。
         data.forEach(function(item){
             const postCode = item['postCode'];
@@ -24,46 +24,55 @@ function getJusho(instanceModal, postCodeVal, postCodeId, jushoKanjiId, jushoKan
                 $(jushoKanjiId).val(jushoKanji);
                 $(jushoKanaId).val(jushoKana);
             });
-            $('#jusholist').append(radioInput);
+            $(insertId).find('.jusholist').append(radioInput);
         });
         //イベント設定。住所が選択されたら、モーダルをクローズする。※radioの選択が見えるように、遅延してクローズ。
-        $('#jusholist input').each(function(index, element){
+        $(insertId).find('.jusholist input').each(function(index, element){
             $(element).on('change', function(){
                 setTimeout(() => {instanceModal.close()}, 200);
             });
         });
     }).fail(function(data){
-        // TODO エラー時の対応
-        console.log(data['statusText']);
-        console.log(data['status']);
-        console.log(data['responseText']);
+        if (data['status'] >= 500 || data['status']  == 0) {
+            window.location.href = '/';
+        }
     });
 }
 
-function initJushoModal(triggerBtn, postCodeId, jushoKanjiId, jushoKanaId) {
-    const optionsModal = {
-        onCloseEnd: function(){
-            //モーダルクローズ時に、モーダル内住所リストをクリア。
-            $('#jusholist').empty();
+$(document).ready(function(){
+    $('.jusho-trigger').each(function(index, triggerElement){
+        const insertId = '#'+$(triggerElement).data('insertId');
+        const optionsModal = {
+            onCloseEnd: function(){
+                //モーダルクローズ時に、モーダル内住所リストをクリア。
+                $(insertId).find('.jusholist').empty();
+                $(insertId).find('.postCode-modal').val('');
+            }
         }
-    }
-    const modalElm = document.querySelector('.modal');
-    const instanceModal = M.Modal.init(modalElm, optionsModal);
+        //モーダルインスタンス構築
+        const modalElm = $(insertId).find('.modal')[0];
+        const instanceModal = M.Modal.init(modalElm, optionsModal);
 
-    //モーダル起動ボタン。住所検索ボタンイベント設定。クリック後にAjax呼び出し。
-    $(triggerBtn).on('click', function(){
-        const postCodeVal = $(postCodeId).val();
-        if (postCodeVal == '') {
+        //個別画面側のIDを取得
+        const postCodeId = '#'+$(triggerElement).data('postCodeId');
+        const jushoKanjiId = '#'+$(triggerElement).data('jushoKanjiId');
+        const jushoKanaId = '#'+$(triggerElement).data('jushoKanaId');
+
+        //モーダル起動ボタン。住所検索ボタンイベント設定。クリック後にAjax呼び出し。
+        $(triggerElement).on('click', function(){
+            const postCodeVal = $(postCodeId).val();
+            if (postCodeVal == '') {
+                instanceModal.open();
+                return;
+            }
+            $(insertId).find('.postCode-modal').val(postCodeVal)
+            getJusho(insertId, instanceModal, postCodeVal, postCodeId, jushoKanjiId, jushoKanaId);
             instanceModal.open();
-            return;
-        }
-        $('#postCode-modal').val(postCodeVal)
-        getJusho(instanceModal, postCodeVal, postCodeId, jushoKanjiId, jushoKanaId);
-        instanceModal.open();
-    });
+        });
 
-    //モーダル内の検索ボタン
-    $('#modal-search').on('click', function(){
-        getJusho(instanceModal, $('#postCode-modal').val(), postCodeId, jushoKanjiId, jushoKanaId);
+        //モーダル内の検索ボタン
+        $(insertId).find('.modal-search').on('click', function(){
+            getJusho(insertId, instanceModal, $(insertId).find('.postCode-modal').val(), postCodeId, jushoKanjiId, jushoKanaId);
+        });
     });
-}
+});
