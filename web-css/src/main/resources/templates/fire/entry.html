@@ -94,7 +94,7 @@ function getJusho(inputPostCode, instanceModal) {
         url:'/getJusho',
         type:'GET',
         data: {
-            postCode: inputPostCode,
+            zipCode: inputPostCode,
         },
         dataType: 'json',
         timeout: 3000,
@@ -104,14 +104,14 @@ function getJusho(inputPostCode, instanceModal) {
     }).done(function(data){
         $('#jusholist').empty();
         //住所1件毎に、イベント設定とラジオボタン要素生成。
-        data.forEach(function(item){
-            const postCode = item['postCode'];
+        data["jushoList"].forEach(function(item){
+            const zipCode = item['zipCode'];
             const jushoKanji = item['jushoKanji'];
             const jushoKana = item['jushoKana'];
-            const radioInput = $('<p><label><input name="ju" type="radio"/><span>'+postCode+' '+jushoKanji+'</span></label></p>');
+            const radioInput = $('<p><label><input name="ju" type="radio"/><span>'+zipCode+' '+jushoKanji+'</span></label></p>');
             //イベント設定。住所が選択されたら、選択された住所を画面本体へ反映する。
             $(radioInput).find('input').on('change', function(){
-                $('#postCode').val(postCode);
+                $('#postCode').val(zipCode);
                 $('#jushoKanji').val(jushoKanji);
                 $('#jushoKana').val(jushoKana);
             });

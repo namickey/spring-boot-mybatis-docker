@@ -76,7 +76,8 @@
             <div class="input-field col s3">
                 <a href="#" class="waves-effect waves-light btn jusho-trigger"
                    data-insert-id="jitaku-jusho-insert"
-                   data-post-code-id="jitaku-post-code"
+                   data-zip-code-front-id="jitaku-zip-code-front"
+                   data-zip-code-back-id="jitaku-zip-code-back"
                    data-jusho-kanji-id="jitaku-jusho-kanji"
                    data-jusho-kana-id="jitaku-jusho-kana">検索</a>
             </div>
@@ -88,13 +89,12 @@
             <div class="input-field col s3">
                 <a href="#" class="waves-effect waves-light btn jusho-trigger"
                    data-insert-id="office-jusho-insert"
-                   data-post-code-id="office-post-code"
+                   data-zip-code-front-id="office-zip-code-front"
+                   data-zip-code-back-id="office-zip-code-back"
                    data-jusho-kanji-id="office-jusho-kanji"
                    data-jusho-kana-id="office-jusho-kana">検索</a>
             </div>
         </div>
-        <p>検索結果</p>
-        <div id="jusholist" ></div>
     </div>
     <div class="modal-footer">
         <a href="#" class="modal-close waves-effect waves-green btn-flat">キャンセル</a>
@@ -108,7 +108,7 @@
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="/js/jusho.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
 <script>
 $(document).ready(function(){
     const modalElm = document.querySelector('#modal1');
