@@ -35,14 +35,22 @@
             </div>
             <div class="row">
                 <div class="col s12">
-                    <div class="input-field col s8">
-                        <input id="jitaku-post-code" type="text" placeholder="半角数字" class="validate">
-                        <label for="jitaku-post-code">自宅郵便番号</label>
+                    <div class="input-field col s3">
+                        <input id="jitaku-zip-code-front" type="text" placeholder="半角数字" class="validate">
+                        <label for="jitaku-zip-code-front">自宅郵便番号前</label>
+                    </div>
+                    <div class="input-field col s1">
+                        <span class="">-</span>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="jitaku-zip-code-back" type="text" placeholder="半角数字" class="validate">
+                        <label for="jitaku-zip-code-back">自宅郵便番号後</label>
                     </div>
                     <div class="col s4">
                         <a href="#" class="waves-effect waves-light btn jusho-trigger"
                            data-insert-id="jitaku-jusho-insert"
-                           data-post-code-id="jitaku-post-code"
+                           data-zip-code-front-id="jitaku-zip-code-front"
+                           data-zip-code-back-id="jitaku-zip-code-back"
                            data-jusho-kanji-id="jitaku-jusho-kanji"
                            data-jusho-kana-id="jitaku-jusho-kana">検索</a>
                     </div>
@@ -62,14 +70,22 @@
             </div>
             <div class="row">
                 <div class="col s12">
-                    <div class="input-field col s8">
-                        <input id="office-post-code" type="text" placeholder="半角数字" class="validate">
-                        <label for="office-post-code">勤務先郵便番号</label>
+                    <div class="input-field col s3">
+                        <input id="office-zip-code-front" type="text" placeholder="半角数字" class="validate">
+                        <label for="office-zip-code-front">自宅郵便番号前</label>
+                    </div>
+                    <div class="input-field col s1">
+                        <span class="">-</span>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="office-zip-code-back" type="text" placeholder="半角数字" class="validate">
+                        <label for="office-zip-code-back">自宅郵便番号後</label>
                     </div>
                     <div class="col s4">
                         <a href="#" class="waves-effect waves-light btn jusho-trigger"
                            data-insert-id="office-jusho-insert"
-                           data-post-code-id="office-post-code"
+                           data-zip-code-front-id="office-zip-code-front"
+                           data-zip-code-back-id="office-zip-code-back"
                            data-jusho-kanji-id="office-jusho-kanji"
                            data-jusho-kana-id="office-jusho-kana">検索</a>
                     </div>

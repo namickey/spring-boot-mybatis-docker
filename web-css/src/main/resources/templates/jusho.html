@@ -2,17 +2,25 @@
     <div th:fragment="frag">
         <div id="modal1" class="modal">
             <div class="modal-content">
-                <p>住所入力</p>
+                <p>住所入力モーダル</p>
                 <div class="row red-text modal-error-message"></div>
                 <div class="row">
                     <div class="input-field col s2">
-                        <input type="text" placeholder="半角数字" class="validate postCode-modal">
+                        郵便番号
+                    </div>
+                    <div class="input-field col s2">
+                        <input type="text" placeholder="半角数字" maxlength="3" class="validate zip-code-front-modal">
+                    </div>
+                    <div class="input-field col s1">
+                        <span class="">-</span>
+                    </div>
+                    <div class="input-field col s2">
+                        <input type="text" placeholder="半角数字" maxlength="4" class="validate zip-code-back-modal">
                     </div>
                     <div class="input-field col s2">
                         <a href="#" class="waves-effect waves-light btn modal-search">検索</a>
                     </div>
                 </div>
-                <p>検索結果</p>
                 <div class="jusholist" ></div>
             </div>
             <div class="modal-footer">

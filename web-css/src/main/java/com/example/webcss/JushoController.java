@@ -17,13 +17,13 @@ public class JushoController {
     @ResponseBody
     public Object getJusho(@Valid JushoRequest req){
 
-        if ("a".equals(req.getPostCode())){
+        if ("a".equals(req.getZipCodeFront())){
             return ResponseEntity.status(400).body(Map.of("errorMessage","no data"));
         }
 
         List<Jusho> jushoList = new ArrayList<>();
-        jushoList.add(new Jusho("123-4567", "東京都中央区１", "トウキョウトチュウオウク１"));
-        jushoList.add(new Jusho("123-4567", "東京都中央区２", "トウキョウトチュウオウク２"));
+        jushoList.add(new Jusho("1234567", "東京都中央区１", "トウキョウトチュウオウク１"));
+        jushoList.add(new Jusho("1234567", "東京都中央区２", "トウキョウトチュウオウク２"));
         JushoResponse res = new JushoResponse();
         res.setJushoList(jushoList);
         return res;
