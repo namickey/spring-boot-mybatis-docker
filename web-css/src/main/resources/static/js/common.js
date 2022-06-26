@@ -13,7 +13,7 @@ function getJusho(insertId, instanceModal, postCodeVal, postCodeId, jushoKanjiId
     }).done(function(data){
         $(insertId).find('.jusholist').empty();
         //住所1件毎に、イベント設定とラジオボタン要素生成。
-        data.forEach(function(item){
+        data["jushoList"].forEach(function(item){
             const postCode = item['postCode'];
             const jushoKanji = item['jushoKanji'];
             const jushoKana = item['jushoKana'];
@@ -33,8 +33,17 @@ function getJusho(insertId, instanceModal, postCodeVal, postCodeId, jushoKanjiId
             });
         });
     }).fail(function(data){
+        if (data['status'] == 400) {
+            if (data['responseJSON']['errorMessage']) {
+                console.log(data['responseJSON']['errorMessage']);
+            } else {
+                console.log(data['responseJSON']['errors'][0]['field']);
+                console.log(data['responseJSON']['errors'][0]['defaultMessage']);
+            }
+        }
+
         if (data['status'] >= 500 || data['status']  == 0) {
-            window.location.href = '/';
+            //window.location.href = '/';
         }
     });
 }
