@@ -99,33 +99,44 @@ PUBLIC側EC2 > ssh -i key.pem privateIPアドレス（PRIVATE型EC2）
 
 ### コスト、無料枠
 
-- 無し：VPC
-- 無し：SUBNET
-- 無し：ルートテーブル
-- 無し：インターネットゲートウェイ
-- 無し：ACL
-- 無し：セキュリティグループ
-- 無し：Public IP
-- `有料`：Elastic IP
-- 無料枠：EC2インスタンス
-- 無料枠：ELB（ストレージ）
-- 無料：通信（外⇒AWS）
-- `有料`：通信（AWS⇒外）
-- 無料：通信（同一AZ内）
-- `有料`：通信（異なるAZ間）
 
 - ネットワーク
-  - 無料枠：ALB
-  - `有料`：NATゲートウェイ
-- コンテナ
-  - `有料`：ECS, Fargate
-  - 無料枠：ECR
+  - 無し：VPC
+  - 無し：SUBNET
+  - 無し：ルートテーブル
+  - 無し：インターネットゲートウェイ
+  - 無し：ACL
+  - 無し：セキュリティグループ
+  - 無料：通信（外⇒AWS）
+  - `有料`：通信（AWS⇒外）
+  - 無料：通信（同一AZ内）
+  - `有料`：通信（異なるAZ間）
+- EC2
+  - 無し：Public IP
+  - `有料`：Elastic IP
+  - 無料枠：EC2インスタンス
+  - 無料枠：ELB（ストレージ）
+
+- WEB API
+  - 無料枠：API Gateway
+- CloudWatch
+  - 無料枠：CloudWatch Logs
+- ストレージ
+  - 無料枠：S3
 - データベース
   - 無料枠：RDS
   - `有料`：Aurora
-- WEB API
-  - 無料枠：API Gateway
-
+- コンテナ
+  - `有料`：ECS, Fargate
+  - 無料枠：ECR
+- ネットワーク
+  - 無料枠：ALB
+  - `有料`：NATゲートウェイ
+  - `有料`：ECR VPCエンドポイント
+  - `有料`：CloudWatch VPCエンドポイント
+  - 無料：S3 VPCエンドポイント
+  - 無料：ACM
+  - `有料`：ROUTE53
 
 ### PRIVATE SUBNETを使うなら、`NATゲートウェイ`or`VPCエンドポイント`が必要
 
