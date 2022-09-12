@@ -42,6 +42,7 @@ https://zenn.dev/oreo2990/articles/bf3112bb6ccb48
 - 例えば、PUBLIC  SUBNETには、API GW、ALB、WEBサーバ、踏み台
 - 例えば、PRIVATE SUBNETには、DB、EC2内部サーバ（APサーバ、バッチサーバ）、ECS（サービス、タスク）
 
+
 ## EC2
 
 【AWS】EC2インスタンスの作成方法解説！サーバーを作成して接続してみる  
@@ -58,6 +59,17 @@ https://engineer-ninaritai.com/aws-ec2-make/
 接続方法  
 ```
 ssh -i key.pem ec2-user@IPアドレス
+```
+
+何らかのアプリ起動方法
+```
+sudo yum install git
+sudo yum install java-11-amazon-corretto.x86_64
+git clone https://github.com/namickey/spring-boot-mybatis-docker.git
+./mvnw spring-boot:run
+
+ブラウザからアクセス
+`http://パブリップIP:8080/`
 ```
 
 
