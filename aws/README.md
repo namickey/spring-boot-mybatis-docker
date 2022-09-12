@@ -66,6 +66,8 @@ ssh -i key.pem ec2-user@IPアドレス
 sudo yum install git
 sudo yum install java-11-amazon-corretto.x86_64
 git clone https://github.com/namickey/spring-boot-mybatis-docker.git
+cd spring-boot-mybatis-docker
+cd web-css
 ./mvnw spring-boot:run
 
 ブラウザからアクセス
