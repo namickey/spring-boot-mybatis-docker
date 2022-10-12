@@ -1,5 +1,8 @@
 # AWS
 
+AWS入門として、VPC + EC2を無料枠で構築して、クライアント端末からSSH接続する方法。
+
+
 ## VPC
 
 【AWS①】ネットワークを構築してみる  
@@ -71,7 +74,7 @@ cd web-css
 ./mvnw spring-boot:run
 
 ブラウザからアクセス
-`http://パブリップIP:8080/`
+`http://パブリックIP:8080/`
 ```
 
 
@@ -98,7 +101,7 @@ cd web-css
 - ストレージは8GB
 - セキュリティグループは、PRIVATE向けでSSHを許可。送信元はPUBLICのセキュリティグループを指定。
 - アクセス方法は、例えば、まず自宅マシンからPUBLIC SUBNETのEC2へSSHして、次にそのEC2内からPRIVATE SUBNETのEC2へSSHする。  
-  ※PUBLIC側EC2を踏み台と呼ぶ
+  ※PUBLIC側EC2を`踏み台`と呼ぶ
 
 
 接続方法  
@@ -122,7 +125,7 @@ PUBLIC側EC2 > ssh -i key.pem privateIPアドレス（PRIVATE型EC2）
   - 無し：ACL
   - 無し：セキュリティグループ
   - 無料：通信（外⇒AWS）
-  - `有料`：通信（AWS⇒外）
+  - 無料枠：通信（AWS⇒外）
   - 無料：通信（同一AZ内）
   - `有料`：通信（異なるAZ間）
 - EC2
@@ -151,6 +154,9 @@ PUBLIC側EC2 > ssh -i key.pem privateIPアドレス（PRIVATE型EC2）
   - 無料：S3 VPCエンドポイント
   - 無料：ACM
   - `有料`：ROUTE53
+- その他
+  - `有料`：Secrets Manager
+
 
 ### PRIVATE SUBNETを使うなら、`NATゲートウェイ`or`VPCエンドポイント`が必要
 
@@ -165,5 +171,20 @@ https://blog.not75743.com/post/ecs_private/
 
 - VPCエンドポイント無し：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできない。`yum update`もできない。ECRからpullできない。S3もCloud Watchもダメ。
 - VPCエンドポイント有り：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできない。`yum update`もできない。ECR、S3、Cloud Watchは使えるようになる。
+
+
+### ALB
+
+
+
+python3 -m http.server
+
+
+
+
+
+
+
+
 
 
