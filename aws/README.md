@@ -2,6 +2,8 @@
 
 AWS入門として、VPC + EC2を無料枠で構築して、クライアント端末からSSH接続する方法。
 
+![VPC+EC2.png](VPC+EC2.png)
+
 
 ## VPC
 
